@@ -244,6 +244,12 @@ section{padding:96px 0}
 form.cform{background:#fff;border-radius:var(--radius);padding:2rem;display:grid;gap:1rem}
 form.cform .row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
 @media(max-width:520px){form.cform .row{grid-template-columns:1fr}}
+.contact-cta{background:#fff;border-radius:var(--radius);padding:2.4rem;display:flex;flex-direction:column;gap:1.1rem;align-self:start}
+.contact-cta h3{font-family:"Teko";font-weight:600;font-size:2rem;line-height:1;color:var(--ink)}
+.contact-cta p{color:var(--ink-soft);line-height:1.6;max-width:44ch}
+.contact-cta-btns{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:.4rem}
+.contact-cta-btns .btn{justify-content:center;gap:.55rem;flex:1;min-width:160px}
+.contact-cta-note{font-size:.82rem;color:var(--ink-soft);opacity:.8}
 .field{display:flex;flex-direction:column;gap:.35rem}
 .field label{font-size:.78rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-soft)}
 .field input,.field select,.field textarea{
