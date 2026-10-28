@@ -15,8 +15,9 @@ if (nav) {
 const toggle = document.querySelector('.nav-toggle');
 const links = document.querySelector('.navlinks');
 if (toggle && links) {
-  toggle.addEventListener('click', () => links.classList.toggle('open'));
-  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+  const setIcon = (open) => { toggle.innerHTML = open ? '&times;' : '&#9776;'; toggle.setAttribute('aria-expanded', open ? 'true' : 'false'); };
+  toggle.addEventListener('click', () => setIcon(links.classList.toggle('open')));
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { links.classList.remove('open'); setIcon(false); }));
 }
 
 // Hero rolling images
@@ -39,25 +40,11 @@ const io = new IntersectionObserver((entries) => {
 }, { threshold: 0.12 });
 document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-// Review star picker (review.html)
-const starpick = document.querySelector('.starpick');
-if (starpick) {
-  const buttons = [...starpick.querySelectorAll('button')];
-  const GOOGLE_URL = 'https://g.page/r/PLACEHOLDER/review';
-  buttons.forEach(btn => {
-    const val = +btn.dataset.val;
-    btn.addEventListener('mouseenter', () => buttons.forEach(b => b.classList.toggle('lit', +b.dataset.val <= val)));
-    btn.addEventListener('click', () => {
-      if (val >= 4) window.location.href = GOOGLE_URL;
-      else window.location.href = 'private.html?rating=' + val;
-    });
-  });
-  starpick.addEventListener('mouseleave', () => buttons.forEach(b => b.classList.remove('lit')));
-}
-
-// Private feedback: pre-fill rating from URL
-const params = new URLSearchParams(window.location.search);
-const ratingField = document.getElementById('rating');
-if (ratingField && params.get('rating')) {
-  ratingField.value = params.get('rating') + ' star' + (params.get('rating') === '1' ? '' : 's');
-}
+// Email buttons -> Gmail compose (works without a desktop mail app)
+document.querySelectorAll("a[data-gmail]").forEach(function (a) {
+  var to = a.getAttribute("data-user") + "@" + a.getAttribute("data-domain");
+  var su = a.getAttribute("data-su") || "";
+  var body = a.getAttribute("data-body") || "";
+  a.href = "https://mail.google.com/mail/?view=cm&fs=1&to=" + encodeURIComponent(to) + "&su=" + su + "&body=" + body;
+  a.target = "_blank"; a.rel = "noopener";
+});
